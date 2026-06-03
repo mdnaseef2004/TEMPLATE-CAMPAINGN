@@ -26,15 +26,14 @@ export async function POST(req: Request) {
     const formattedPrivateKey = privateKey.replace(/\\n/g, "\n");
 
     // Initialize google auth client
-    const auth = new google.auth.JWT(
-      serviceEmail,
-      undefined,
-      formattedPrivateKey,
-      [
+    const auth = new google.auth.JWT({
+      email: serviceEmail,
+      key: formattedPrivateKey,
+      scopes: [
         "https://www.googleapis.com/auth/spreadsheets",
         "https://www.googleapis.com/auth/drive"
       ]
-    );
+    });
 
     const sheets = google.sheets({ version: "v4", auth });
     const drive = google.drive({ version: "v3", auth });

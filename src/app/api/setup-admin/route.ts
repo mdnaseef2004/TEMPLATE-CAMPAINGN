@@ -5,14 +5,15 @@ import { doc, updateDoc, collection, query, where, getDocs } from "firebase/fire
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const email = searchParams.get("email");
-    const uid = searchParams.get("uid");
-
-    if (!db) {
+    const firestoreDb = db;
+    if (!firestoreDb) {
       return NextResponse.json({
         error: "Firebase Firestore is not configured."
       }, { status: 500 });
     }
+
+    const email = searchParams.get("email");
+    const uid = searchParams.get("uid");
 
     if (!email && !uid) {
       return NextResponse.json({
@@ -24,7 +25,7 @@ export async function GET(req: Request) {
 
     if (email && !uid) {
       // Find the user with this email in Firestore
-      const usersRef = collection(db, "users");
+      const usersRef = collection(firestoreDb, "users");
       const q = query(usersRef, where("email", "==", email.toLowerCase()));
       const querySnapshot = await getDocs(q);
 
@@ -38,7 +39,7 @@ export async function GET(req: Request) {
     }
 
     // Update user's role to 'admin'
-    const userDocRef = doc(db, "users", userDocId);
+    const userDocRef = doc(firestoreDb, "users", userDocId);
     await updateDoc(userDocRef, {
       role: "admin"
     });
