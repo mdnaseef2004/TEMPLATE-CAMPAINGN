@@ -8,6 +8,12 @@ export async function GET(req: Request) {
     const email = searchParams.get("email");
     const uid = searchParams.get("uid");
 
+    if (!db) {
+      return NextResponse.json({
+        error: "Firebase Firestore is not configured."
+      }, { status: 500 });
+    }
+
     if (!email && !uid) {
       return NextResponse.json({
         error: "Please provide either an '?email=...' or '?uid=...' query parameter."
