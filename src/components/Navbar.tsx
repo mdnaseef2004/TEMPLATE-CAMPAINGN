@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import ThemeToggle from "./ThemeToggle";
 import { Menu, X, LayoutDashboard, Shield, LogOut, User, Image as ImageIcon } from "lucide-react";
 
 export default function Navbar() {
@@ -80,7 +79,6 @@ export default function Navbar() {
 
           {/* Actions - Desktop */}
           <div className="hidden md:flex items-center gap-4">
-            <ThemeToggle />
             
             {loading ? (
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
@@ -120,7 +118,6 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-3">
-            <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl glass-panel text-foreground"
