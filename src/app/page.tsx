@@ -71,7 +71,7 @@ export default function Home() {
               {/* Fake Transparent PNG overlay */}
               <div className="absolute inset-0 border-[24px] border-primary/25 rounded-2xl flex flex-col justify-end p-4">
                 <div className="bg-black/60 backdrop-blur-md text-white font-bold text-[10px] uppercase tracking-wider py-1 px-2 rounded-lg text-center border border-white/10 shadow-sm">
-                  #TwibbonCraftCreator
+                  #CityCraftCreator
                 </div>
               </div>
             </div>
@@ -95,7 +95,7 @@ export default function Home() {
       <section className="space-y-12">
         <div className="text-center space-y-4 max-w-2xl mx-auto">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            How TwibbonCraft <span className="gradient-text">Works</span>
+            How City Craft <span className="gradient-text">Works</span>
           </h2>
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
             Boost your product launches, community festivals, or political updates in three simple, automated steps.

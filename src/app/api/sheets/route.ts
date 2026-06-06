@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       // Create a spreadsheet
       const resource = {
         properties: {
-          title: `TwibbonCraft - ${campaignTitle || "Campaign"} Participants`,
+          title: `City Craft - ${campaignTitle || "Campaign"} Participants`,
         },
       };
 
