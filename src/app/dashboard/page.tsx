@@ -272,9 +272,9 @@ export default function DashboardPage() {
         setCampaigns(campaigns.filter((c) => c.id !== id));
       }
       fetchCampaigns();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete campaign:", error);
-      alert("Failed to delete campaign. Please try again.");
+      alert(`Failed to delete campaign. Error: ${error.message || JSON.stringify(error)}`);
     }
   };
 
