@@ -30,9 +30,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-102">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-pink-500 shadow-md">
-                <ImageIcon className="h-5 w-5 text-white" />
-              </div>
+              <img src="/IMG_2458.PNG" alt="TwibbonCraft Logo" className="h-9 w-9 rounded-xl object-cover shadow-md" />
               <span className="font-bold tracking-tight text-xl bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 TwibbonCraft
               </span>
