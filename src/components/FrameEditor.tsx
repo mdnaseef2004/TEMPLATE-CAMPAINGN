@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Upload, Download, ZoomIn, RotateCw, RefreshCw, Move, Check } from "lucide-react";
+import { Upload, Download, ZoomIn, RotateCw, RefreshCw, Move, Check, MessageCircle } from "lucide-react";
 
 interface FrameEditorProps {
   frameUrl: string;
@@ -323,32 +323,47 @@ export default function FrameEditor({ frameUrl, campaignTitle, onSuccessSubmit }
         </label>
 
         {photoUrl && (
-          <button
-            onClick={handleMergeAndDownload}
-            disabled={isProcessing}
-            className={`w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md ${
-              isDownloaded
-                ? "bg-success hover:opacity-90"
-                : "bg-gradient-to-r from-primary to-pink-500 hover:opacity-95"
-            }`}
-          >
-            {isProcessing ? (
-              <>
-                <div className="w-4 h-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                Generating High-Res...
-              </>
-            ) : isDownloaded ? (
-              <>
-                <Check className="w-4 h-4" />
-                Downloaded successfully!
-              </>
-            ) : (
-              <>
-                <Download className="w-4 h-4" />
-                Download Generated Image
-              </>
+          <div className="flex flex-col gap-3 w-full">
+            <button
+              onClick={handleMergeAndDownload}
+              disabled={isProcessing}
+              className={`w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md ${
+                isDownloaded
+                  ? "bg-success hover:opacity-90"
+                  : "bg-gradient-to-r from-primary to-pink-500 hover:opacity-95"
+              }`}
+            >
+              {isProcessing ? (
+                <>
+                  <div className="w-4 h-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  Generating High-Res...
+                </>
+              ) : isDownloaded ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  Downloaded successfully!
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  Download Generated Image
+                </>
+              )}
+            </button>
+            
+            {isDownloaded && (
+              <button
+                onClick={() => {
+                  const text = `I just joined the ${campaignTitle} campaign! Join me and generate your own frame here: ${window.location.href}`;
+                  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md bg-[#25D366] hover:bg-[#20bd5a]"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Share Campaign on WhatsApp
+              </button>
             )}
-          </button>
+          </div>
         )}
       </div>
     </div>
