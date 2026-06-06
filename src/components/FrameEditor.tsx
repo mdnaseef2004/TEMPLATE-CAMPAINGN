@@ -19,6 +19,7 @@ export default function FrameEditor({ frameUrl, campaignTitle, onSuccessSubmit }
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isDownloaded, setIsDownloaded] = useState<boolean>(false);
+  const [hasShared, setHasShared] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -58,6 +59,7 @@ export default function FrameEditor({ frameUrl, campaignTitle, onSuccessSubmit }
       setRotation(0);
       setOffset({ x: 0, y: 0 });
       setIsDownloaded(false);
+      setHasShared(false);
 
       // Load user image
       const img = new Image();
@@ -187,6 +189,7 @@ export default function FrameEditor({ frameUrl, campaignTitle, onSuccessSubmit }
     setRotation(0);
     setOffset({ x: 0, y: 0 });
     setIsDownloaded(false);
+    setHasShared(false);
   };
 
   return (
@@ -324,44 +327,51 @@ export default function FrameEditor({ frameUrl, campaignTitle, onSuccessSubmit }
 
         {photoUrl && (
           <div className="flex flex-col gap-3 w-full">
-            <button
-              onClick={handleMergeAndDownload}
-              disabled={isProcessing}
-              className={`w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md ${
-                isDownloaded
-                  ? "bg-success hover:opacity-90"
-                  : "bg-gradient-to-r from-primary to-pink-500 hover:opacity-95"
-              }`}
-            >
-              {isProcessing ? (
-                <>
-                  <div className="w-4 h-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Generating High-Res...
-                </>
-              ) : isDownloaded ? (
-                <>
-                  <Check className="w-4 h-4" />
-                  Downloaded successfully!
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4" />
-                  Download Generated Image
-                </>
-              )}
-            </button>
-            
-            {isDownloaded && (
+            {!hasShared ? (
               <button
                 onClick={() => {
                   const text = `I just joined the ${campaignTitle} campaign! Join me and generate your own frame here: ${window.location.href}`;
                   window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
+                  setHasShared(true);
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md bg-[#25D366] hover:bg-[#20bd5a]"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md bg-[#25D366] hover:bg-[#20bd5a] animate-pulse"
               >
                 <MessageCircle className="w-4 h-4" />
-                Share Campaign on WhatsApp
+                Share to WhatsApp to Unlock Download
               </button>
+            ) : (
+              <button
+                onClick={handleMergeAndDownload}
+                disabled={isProcessing}
+                className={`w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl text-white font-bold transition-all active:scale-[0.99] text-sm shadow-md ${
+                  isDownloaded
+                    ? "bg-success hover:opacity-90"
+                    : "bg-gradient-to-r from-primary to-pink-500 hover:opacity-95"
+                }`}
+              >
+                {isProcessing ? (
+                  <>
+                    <div className="w-4 h-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Generating High-Res...
+                  </>
+                ) : isDownloaded ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    Downloaded successfully!
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" />
+                    Download Generated Image
+                  </>
+                )}
+              </button>
+            )}
+            
+            {hasShared && !isDownloaded && (
+              <p className="text-[10px] text-center text-muted-foreground font-semibold">
+                Thanks for sharing! You can now download your image.
+              </p>
             )}
           </div>
         )}
