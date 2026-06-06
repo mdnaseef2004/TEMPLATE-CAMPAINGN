@@ -31,8 +31,8 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-102">
               <img src="/IMG_2458.PNG" alt="TwibbonCraft Logo" className="h-10 w-auto object-contain" />
-              <span className="font-bold tracking-tight text-xl bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                TwibbonCraft
+              <span className="font-bold tracking-tight text-xl bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent" style={{ fontFamily: 'var(--font-poppins), sans-serif' }}>
+                City Craft
               </span>
             </Link>
           </div>

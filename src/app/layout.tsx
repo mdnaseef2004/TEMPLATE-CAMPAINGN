@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
@@ -15,8 +15,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "800"],
+});
+
 export const metadata: Metadata = {
-  title: "TwibbonCraft | Campaign Frame Generator",
+  title: "City Craft | Campaign Frame Generator",
   description: "Create premium frame campaigns, share links, and generate high-resolution transparent PNG frames in seconds.",
 };
 
@@ -28,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground relative selection:bg-primary-light selection:text-primary">
@@ -58,7 +64,7 @@ export default function RootLayout({
           {/* Sticky footer */}
           <footer className="w-full glass-panel border-t border-opacity-10 py-6 mt-auto text-center text-xs text-muted-foreground z-10">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <p>© {new Date().getFullYear()} TwibbonCraft. Crafted with passion for modern campaigns.</p>
+              <p>© {new Date().getFullYear()} City Craft. Crafted with passion for modern campaigns.</p>
             </div>
           </footer>
         </AuthProvider>
